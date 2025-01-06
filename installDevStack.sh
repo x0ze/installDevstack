@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Add User
-sudo useradd -s /bin/bash -d /opt/stack -m stack
-sudo chmod +x /opt/stack
+useradd -s /bin/bash -d /opt/stack -m stack
+chmod +x /opt/stack
 
 # Add right for user
 echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
@@ -13,7 +13,8 @@ sudo -u stack -i <<EOF
   touch local.conf
   echo "[[local|localrc]]" > local.conf
   echo "ADMIN_PASSWORD=secret" >> local.conf
-  echo "DATABASE_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
-  echo "RABBIT_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
-  echo "SERVICE_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
+  echo -e "DATABASE_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
+  echo -e "RABBIT_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
+  echo -e "SERVICE_PASSWORD=\$ADMIN_PASSWORD" >> local.conf
+  ./stack.sh
 EOF
